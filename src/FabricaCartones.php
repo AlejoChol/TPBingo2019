@@ -44,16 +44,24 @@ class FabricaCartones {
 	return TRUE;
   }
   protected function validarTresCeldasIndividuales($carton) {
-   	
 	return TRUE;
   }
   protected function validarNumerosIncrementales($carton) {
-	
 	return TRUE;
   }
   protected function validarFilasConVaciosUniformes($carton) {
-	
-	return TRUE;
+	 foreach($carton->filas() as $fila)
+	 {	 $c = 0;
+	 	foreach($fila as $numero)
+		{	if($numero == 0){ $c++; }
+		 	else {
+				$cmax=$c;
+				$c = 0;
+			}
+		}
+	 if($cmax > 3){return FALSE;}
+	 }
+	 return TRUE;
   }
   public function intentoCarton() {
     $contador = 0;
