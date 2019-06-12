@@ -31,7 +31,7 @@ public function generarCarton() {
       return TRUE;
     }
     return FALSE;
-  }
+  }/*
   protected function validarUnoANoventa($carton) {
 	 foreach($carton->numerosDelCarton() as $numero){
 	if($numero < 1 || $numero >90) {return FALSE;}
@@ -103,7 +103,116 @@ public function generarCarton() {
 	 if($cmax > 3){return FALSE;}
 	 }
 	 return TRUE;
+  }*/
+
+  protected function validarUnoANoventa($carton) {
+    foreach ($carton->numerosDelCarton() as $numero) {
+        if ($numero > 90 && $numero < 1) {
+            return FALSE;
+        }
+    }
+    return TRUE;
   }
+
+  protected function validarCincoNumerosPorFila($carton) {
+    foreach ($carton->filas() as $fila) {
+        $contadorDeNumeros = 0;
+        foreach ($fila as $numero) {
+            if ($numero != 0){
+                $contadorDeNumeros++;
+            }
+        }
+        if ($contadorDeNumeros != 5) {
+            return FALSE;
+        }
+    }
+    return TRUE;
+  }
+
+  protected function validarColumnaNoVacia($carton) {
+    foreach ($carton->columnas() as $columna) {
+        $contadorDeNumeros = 0;
+        foreach ($columna as $numero) {
+            if ($numero != 0){
+                $contadorDeNumeros++;
+            }
+        }
+        if ($contadorDeNumeros == 0) {
+            return FALSE;     
+        }
+    }
+    return TRUE;
+  }
+
+  protected function validarColumnaCompleta($carton) {
+    foreach ($carton->columnas() as $columna) {
+        $contadorDeNumeros = 0;
+        foreach ($columna as $numero) {
+            if ($numero != 0) {
+                $contadorDeNumeros++;
+            }
+        }
+        if ($contadorDeNumeros >= 3) {
+            return FALSE;
+        }
+    }
+    return TRUE;
+  }
+
+  protected function validarTresCeldasIndividuales($carton) {
+    $contadorColumnasConUnElemento = 0;
+    foreach ($carton->columnas() as $columna) {
+        $contadorDeNumeros = 0;
+        foreach ($columna as $numero) {
+            if ($numero != 0){
+                $contadorDeNumeros++;
+            }
+        }
+        if ($contadorDeNumeros == 1) {
+            $contadorColumnasConUnElemento++;
+        }
+    }
+    if ($contadorColumnasConUnElemento == 3) {
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+  }
+
+  protected function validarNumerosIncrementales($carton) {
+    $columnas = $carton->columnas();
+    for($i=0, $j=1; $j<=8; $i++, $j++) {
+        foreach ($columnas[$i] as $NumeroColumnaIzquierda) {
+            foreach ($columnas[$j] as $NumeroColumnaDerecha) {
+                if ($NumeroColumnaIzquierda != 0 && $NumeroColumnaDerecha != 0) {
+                    if ($NumeroColumnaDerecha <= $NumeroColumnaIzquierda) {
+                        return FALSE;
+                    }
+                }
+            }
+        }
+    }
+    return TRUE;
+  }
+
+  protected function validarFilasConVaciosUniformes($carton) {
+    foreach($carton->filas() as $fila) {
+        $contadorDeCerosConsecutivos = 0;
+        foreach($fila as $numero) {
+            if ($numero == 0){
+                $contadorDeCerosConsecutivos++;
+            } else {
+                $contadorDeCerosConsecutivos = 0;
+            }
+            if ($contadorDeCerosConsecutivos >= 3) {
+                return FALSE;
+            }
+        }
+    }
+    return TRUE;
+  }
+
   public function intentoCarton() {
     $contador = 0;
     $carton = [
