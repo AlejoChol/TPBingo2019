@@ -7,7 +7,7 @@ class FabricaCartones {
     while( ($this->cartonEsValido($carton)) == FALSE) {
     	$carton = new Carton(array($this->intentoCarton()));
     }
-  return $carton;
+  return $carton->numeros_carton;
   }
  
 
