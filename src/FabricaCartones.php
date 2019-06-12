@@ -9,140 +9,51 @@ class FabricaCartones {
     }
   return $carton;
   }
-  public function columnas2Filas($carton) {
-    $filas = [];
-    $filas[] = [];
-    for($i=0;$i<3;$i++)
-    {
-        foreach ($carton as $columna)
-        {
-          $filas[$i][]=$columna[$i];
-        }
-    }
-     return $filas;
-  }
-
+ 
 
   protected function cartonEsValido($carton) {
-    if ($this->validarUnoANoventa($carton)/* &&
+    if ($this->validarUnoANoventa($carton)&&
       $this->validarCincoNumerosPorFila($carton) &&
       $this->validarColumnaNoVacia($carton) &&
       $this->validarColumnaCompleta($carton) &&
       $this->validarTresCeldasIndividuales($carton) &&
       $this->validarNumerosIncrementales($carton) &&
-      $this->validarFilasConVaciosUniformes($carton)*/
+      $this->validarFilasConVaciosUniformes($carton)
     ) {
       return TRUE;
     }
     return FALSE;
   }
   protected function validarUnoANoventa($carton) {
-	$carton2=$this->columnas2Filas$carton()
-	foreach($carton2 as $fila){
-		foreach($fila as $numero){
-			if($numero >= 1 && $numero <=90){
-				$bool=1;
-			}
-			else{
-				$bool=0;
-				return $bool;
-			}
-		}
+	 foreach($carton->numerosDelCarton() as $numero){
+	if($numero < 1 || $numero >90) {return FALSE;}
 	}
-	return $bool;
+	
+	return TRUE;
   }
-  protected function validarCincoNumerosPorFila(array $carton) {
-	$carton2=$this->columnas2Filas$carton()
-	 foreach($carton2 as $fila)
-	 {	 $c = 0;
-	 	foreach($fila as $numero)
-		{	if($numero != 0){ $c++; }		
-		}
-	  if($c == 5){
-		return TRUE;
-	  }
-	  else{
-		return FALSE;
-	  }
-	 }
+  protected function validarCincoNumerosPorFila($carton) {
+	
+	return TRUE;
   }
   protected function validarColumnaNoVacia($carton) {
-	  foreach($carton as $columna)
-	  {	$c = 0;
-	   	foreach($columna as $numero)
-		{	if($numero != 0){ $c++; }
-		}
-	  }
-	  if($c >= 1){
-	  	return TRUE;
-	  }
-	  else{
-	  	return FALSE;
-	  }
+	 
+	return TRUE;
   }
   protected function validarColumnaCompleta($carton) {
-	  foreach($carton as $columna)
-	  {	$c = 0;
-	   	foreach($columna as $numero)
-		{	if($numero != 0){ $c++; }
-		}
-	  }
-	  if($c < 3){
-	  	return TRUE;
-	  }
-	  else{
-	  	return FALSE;
-	  }
+	  
+	return TRUE;
   }
   protected function validarTresCeldasIndividuales($carton) {
-   	$c2 = 0;
-	  foreach($carton as $columna)
-	  {	$c = 0;
-	   	foreach($columna as $numero)
-		{	if($numero != 0){ $c++; }
-		}
-	   	 if ($c == 1) { $c2++;}
-	  }	
-	  if($c < 3){
-	  	return TRUE;
-	  }
-	  else{
-	  	return FALSE;
-	  }
+   	
+	return TRUE;
   }
   protected function validarNumerosIncrementales($carton) {
-	$lastMax = 0;
-	  foreach($carton as $columna)
-	 {	
-		$presentMin= min(array_filter($columna));
-		if($presentMin > $lastMax){
-			$bool=TRUE;
-		}
-		else{
-			return FALSE;
-		}
-		$lastMax = max($columna);
-	 }
-	 return $bool;
+	
+	return TRUE;
   }
   protected function validarFilasConVaciosUniformes($carton) {
-	$carton2=$this->columnas2Filas$carton()
-	 foreach($carton2 as $fila)
-	 {	 $c = 0;
-	 	foreach($fila as $numero)
-		{	if($numero == 0){ $c++; }
-		 	else {
-				$cmax=$c;
-				$c = 0;
-			}
-		}
-		  if($cmax < 3){
-			return TRUE;
-		  }
-		  else{
-			return FALSE;
-		  }
-	 }
+	
+	return TRUE;
   }
   public function intentoCarton() {
     $contador = 0;

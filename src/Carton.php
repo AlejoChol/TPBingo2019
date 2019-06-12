@@ -11,23 +11,26 @@ class Carton implements CartonInterface {
   /**
    * {@inheritdoc}
    */
-  public function filas() {
+  public function columnas() {
     return $this->numeros_carton ;
   }
   /**
    * {@inheritdoc}
    */
-  public function columnas() {
-    $columnas = [];
-    $columnas[] = [];
-    for($i=0;$i<9;$i++)
+  public function filas() {
+    $fila = [];
+    $fila[] = [];
+
+    for($i=0;$i<3;$i++)
     {
-        foreach ($this->filas() as $fila)
+        foreach ($this->columnas() as $columna)
         {
-          $columnas[$i][]=$fila[$i];
+          $fila[$i][]=$columna[$i];
         }
     }
-     return $columnas;
+  
+     return $fila;
+  
   }
   /**
    * {@inheritdoc}
