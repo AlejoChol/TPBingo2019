@@ -28,25 +28,58 @@ class FabricaCartones {
 	 foreach($carton->numerosDelCarton() as $numero){
 	if($numero < 1 || $numero >90) {return FALSE;}
 	}
-	
 	return TRUE;
   }
   protected function validarCincoNumerosPorFila($carton) {
-	
+	 foreach($carton->filas() as $fila)
+	 {	 $c = 0;
+	 	foreach($fila as $numero)
+		{	if($numero != 0){ $c++; }		
+		}
+	  if($c != 5){return FALSE;}
+	 }
 	return TRUE;
   }
   protected function validarColumnaNoVacia($carton) {
-	 
+	  foreach($carton->columnas() as $columna)
+	  {	$c = 0;
+	   	foreach($columna as $numero)
+		{	if($numero != 0){ $c++; }
+		}
+	  }
+	  if($c < 1){return FALSE;}
 	return TRUE;
   }
   protected function validarColumnaCompleta($carton) {
-	  
+	  foreach($carton->columnas() as $columna)
+	  {	$c = 0;
+	   	foreach($columna as $numero)
+		{	if($numero != 0){ $c++; }
+		}
+	  }
+	  if($c >= 3){return FALSE;}
 	return TRUE;
   }
   protected function validarTresCeldasIndividuales($carton) {
+   	$c2 = 0;
+	  foreach($carton->columnas() as $columna)
+	  {	$c = 0;
+	   	foreach($columna as $numero)
+		{	if($numero != 0){ $c++; }
+		}
+	   	 if ($c == 1) { $c2++;}
+	  }	
+	if($c2 != 3){return FALSE;}
 	return TRUE;
   }
   protected function validarNumerosIncrementales($carton) {
+	 $lastMax = 0;
+	 foreach($carton->columnas() as $columna)
+	 {	
+		$presentMin= min(array_filter($columna));
+		if($presentMin < $lastMax){return FALSE;}
+		$lastMax = max($columna);
+	 }
 	return TRUE;
   }
   protected function validarFilasConVaciosUniformes($carton) {
