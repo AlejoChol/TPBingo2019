@@ -5,7 +5,7 @@ public function generarCarton() {
     for($i=0; $i<10; $i++) {
         $carton = new Carton($this->intentoCarton());
         if ($this->cartonEsValido($carton)) {
-          return $carton->filas();
+          return $carton->columnas();
         }
     }
   }/*
