@@ -3,9 +3,9 @@ namespace Bingo;
 class FabricaCartones {
   public function generarCarton() {
     // Algo de pseudo-código para ayudar con la evaluacion.
-    $carton = new Carton(array($this->intentoCarton()));
+    $carton = new Carton($this->intentoCarton());
     while( ($this->cartonEsValido($carton)) == FALSE) {
-    	$carton = new Carton(array($this->intentoCarton()));
+    	$carton = new Carton($this->intentoCarton());
     }
   return $carton->filas();
   }
